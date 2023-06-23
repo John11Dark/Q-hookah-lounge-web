@@ -199,13 +199,14 @@ main {
   padding: 0 var(--spacing-300);
 }
 section {
-  width: 100%;
+  max-width: 95%;
   height: max(100%, 100vh);
   display: grid;
   place-content: center;
   place-items: center;
   place-self: center;
   text-align: center;
+  padding: 0 var(--spacing-300);
 }
 /* ? Typography styling */
 
