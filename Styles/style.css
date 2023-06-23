@@ -196,7 +196,7 @@ main {
   place-content: center;
   place-items: center;
   place-self: center;
-  padding: var(--spacing-300);
+  padding: 0 var(--spacing-300);
 }
 section {
   width: 100%;
@@ -464,7 +464,7 @@ svg {
 }
 
 img {
-  width: var(--size-400);
-  height: var(--size-500);
+  width: var(--size-600);
+  height: var(--size-600);
   transform: translateY(15%);
 }
