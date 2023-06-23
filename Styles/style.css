@@ -154,7 +154,7 @@ html,
 html:focus-within {
   scroll-padding: var(--header-hight, 10dvh, 10vh);
   overflow-x: hidden !important;
-  background-color: var(--background-color);
+  background: radial-gradient(circle, #0d1320 0%, #080d19 100%);
   background-attachment: fixed;
 }
 
