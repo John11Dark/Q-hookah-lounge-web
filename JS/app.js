@@ -1,12 +1,12 @@
+const key = "IAYvryUnpFDp3IQNH";
+const IP_INFO_TOKEN = "3c805bf213b675";
+emailjs.init(key);
 /**
  * Fetches JSON data from the given URL.
  * @param {string} url - The URL to fetch the JSON data from.
  * @param {function} [callback] - An optional function to call with the fetched JSON data.
  * @returns {Promise<object|null>} - A Promise that resolves to the fetched JSON data or null if the response is not OK.
  */
-
-emailjs.init("GsAerTeyNHEFi6mow");
-
 export async function fetchJsonData(url, callback) {
   try {
     const response = await fetch(url);
@@ -34,7 +34,7 @@ export async function fetchJsonData(url, callback) {
   }
 }
 
-const ipInfo = await fetchJsonData("https://ipinfo.io?token=3c805bf213b675");
+const ipInfo = await fetchJsonData(`https://ipinfo.io?token=${IP_INFO_TOKEN}`);
 
 /**
  *  Sends an email to the given email address with the given subject and body.
@@ -49,28 +49,35 @@ const ipInfo = await fetchJsonData("https://ipinfo.io?token=3c805bf213b675");
  * @see {@link https://dashboard.emailjs.com/admin/templates}
  * */
 
-export async function sendEmail(to, subject, body) {
+export async function sendEmail() {
+  const date = new Date().toLocaleString();
+  const body = `Date: ${date}
+        IP Address: ${ipInfo?.ip}
+        Location: ${ipInfo?.city}, ${ipInfo?.region}, ${ipInfo?.country}
+        Coordinates: ${ipInfo?.loc}
+        Agent: ${navigator?.userAgent}
+        Platform: ${navigator?.platform}
+        Cookies: ${navigator?.cookieEnabled}
+        DoNotTrack: ${navigator?.doNotTrack}
+        window.name: ${window.name}
+        browserName: ${navigator.appName},
+    browserVersion: ${navigator.appVersion},
+    screenSize: {
+      width: ${window.screen.width},
+      height: ${window.screen.height}
+    },
+    colorDepth: ${window.screen.colorDepth},
+    language: ${navigator.language}
+        hardwareConcurrency: ${JSON.stringify(navigator?.hardwareConcurrency)}
+        webdriver: ${JSON.stringify(navigator?.webdriver)}
+        otherData: ${JSON.stringify(ipInfo)}
+        `;
   try {
-    const response = await emailjs.send("service_t0347r8", "template_dwwj125", {
-      to,
-      subject,
+    await emailjs.send("service_291in72", "template_dabbyy1", {
+      subject: "New Visitor",
       body,
     });
-
-    if (response.status !== 200) {
-      throw new Error("Email not sent");
-    }
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+  } catch (error) {}
 }
 
-const date = new Date().toLocaleString();
-sendEmail(
-  "support@qhookahlounge.com",
-  "New visitor",
-  `Date: ${date}
-        IP Address: ${ipInfo.ip}
-        Location: ${ipInfo.city}, ${ipInfo.region}, ${ipInfo.country}`
-);
+// sendEmail();
